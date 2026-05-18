@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>苏网活动流程 · bibo 能量搜集之旅</title>
+<style>
+  :root {
+    --pink:   #F472B6;
+    --orange: #FB923C;
+    --yellow: #FBBF24;
+    --blue:   #60A5FA;
+    --green:  #34D399;
+    --purple: #A78BFA;
+    --bg:     #0F0F1A;
+    --card:   #1A1A2E;
+    --border: rgba(255,255,255,0.08);
+    --text:   #E2E8F0;
+    --muted:  #94A3B8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, "PingFang SC", "Noto Sans SC", sans-serif;
+    line-height: 1.7;
+  }
+
+  /* ─── Hero ─────────────────────────────────────── */
+  .hero {
+    background: linear-gradient(135deg, #1A0533 0%, #0F0F1A 50%, #001233 100%);
+    padding: 72px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(167,139,250,.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(167,139,250,.15);
+    border: 1px solid rgba(167,139,250,.4);
+    color: var(--purple);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 56px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 30%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 17px;
+    color: var(--muted);
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ─── Section ───────────────────────────────────── */
+  .section {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 56px 24px;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #fff;
+  }
+  .section-title span {
+    background: linear-gradient(90deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  hr.divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 24px;
+  }
+
+  /* ─── World Lore ─────────────────────────────────── */
+  .lore-triangle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+  .lore-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+  .lore-node {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 28px;
+    text-align: center;
+    position: relative;
+  }
+  .lore-node .icon { font-size: 32px; margin-bottom: 8px; }
+  .lore-node .label { font-size: 15px; font-weight: 700; color: #fff; }
+  .lore-node .sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .lore-node.accent-purple { border-color: rgba(167,139,250,.5); background: rgba(167,139,250,.08); }
+  .lore-node.accent-blue   { border-color: rgba(96,165,250,.5);  background: rgba(96,165,250,.08); }
+  .lore-node.accent-pink   { border-color: rgba(244,114,182,.5); background: rgba(244,114,182,.08); }
+  .lore-node.accent-green  { border-color: rgba(52,211,153,.5);  background: rgba(52,211,153,.08); }
+  .lore-arrow {
+    text-align: center;
+    color: var(--muted);
+    font-size: 22px;
+    line-height: 1;
+    margin: 4px 0;
+  }
+  .lore-row-bottom {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ─── Personality Cards ──────────────────────────── */
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+  }
+  .persona-card {
+    border-radius: 16px;
+    padding: 24px 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .persona-card .icon { font-size: 36px; margin-bottom: 10px; }
+  .persona-card .name { font-size: 15px; font-weight: 700; }
+  .persona-card .tip { font-size: 12px; margin-top: 6px; opacity: .75; line-height: 1.5; }
+  .persona-red    { background: rgba(244,114,182,.10); border-color: rgba(244,114,182,.35); }
+  .persona-orange { background: rgba(251,146,60,.10);  border-color: rgba(251,146,60,.35); }
+  .persona-blue   { background: rgba(96,165,250,.10);  border-color: rgba(96,165,250,.35); }
+  .persona-green  { background: rgba(52,211,153,.10);  border-color: rgba(52,211,153,.35); }
+  .persona-purple { background: rgba(167,139,250,.10); border-color: rgba(167,139,250,.35); }
+
+  /* ─── Flow Track ─────────────────────────────────── */
+  .track {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .track-header {
+    padding: 28px 32px 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .track-header .track-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .track-header .track-title { font-size: 20px; font-weight: 800; color: #fff; }
+  .track-header .track-desc  { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .track-body { padding: 28px 32px; }
+
+  .step-list { list-style: none; }
+  .step-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 800;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .step-content {}
+  .step-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .step-detail { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .step-tag {
+    display: inline-block;
+    font-size: 11px; font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 100px;
+    margin-top: 8px;
+    margin-right: 6px;
+  }
+
+  /* track color themes */
+  .track-tennis .track-icon { background: rgba(96,165,250,.15); }
+  .track-tennis .step-num { background: rgba(96,165,250,.2); color: var(--blue); }
+  .track-tennis .step-tag { background: rgba(96,165,250,.15); color: var(--blue); }
+
+  .track-emotion .track-icon { background: rgba(244,114,182,.15); }
+  .track-emotion .step-num { background: rgba(244,114,182,.2); color: var(--pink); }
+  .track-emotion .step-tag { background: rgba(244,114,182,.15); color: var(--pink); }
+
+  .track-venue .track-icon { background: rgba(52,211,153,.15); }
+  .track-venue .step-num { background: rgba(52,211,153,.2); color: var(--green); }
+  .track-venue .step-tag { background: rgba(52,211,153,.15); color: var(--green); }
+
+  /* ─── Materials ──────────────────────────────────── */
+  .material-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .material-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 24px;
+  }
+  .material-card .m-icon { font-size: 28px; margin-bottom: 10px; }
+  .material-card .m-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .material-card .m-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .material-card ul { padding-left: 16px; }
+  .material-card li { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+
+  /* ─── Footer ─────────────────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+  .footer strong { color: #fff; }
+
+  /* ─── Responsive ─────────────────────────────────── */
+  @media (max-width: 600px) {
+    .track-header, .track-body { padding: 20px; }
+    .lore-row-bottom { flex-direction: column; }
+  }
+
+  /* ─── Overview badges ────────────────────────────── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .overview-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .overview-card .ov-icon {
+    font-size: 30px;
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .overview-card .ov-title { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .overview-card .ov-desc  { font-size: 13px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ─── Hero ─── -->
+<div class="hero">
+  <div class="hero-badge">bibo × 苏网 · 活动流程手册</div>
+  <h1>能量搜集之旅</h1>
+  <p>帮助 bibo 在苏网站搜集人类情绪能量，完成任务、集印章、兑换周边！</p>
+</div>
+
+<!-- ─── World Lore ─── -->
+<div class="section">
+  <div class="section-label">世界观背景</div>
+  <div class="section-title">bibo 的宇宙故事 <span>·</span> 为什么来苏网？</div>
+
+  <div class="lore-triangle">
+    <div class="lore-row">
+      <div class="lore-node accent-purple">
+        <div class="icon">🤖</div>
+        <div class="label">bibo</div>
+        <div class="sub">一个 AI 陪伴潮玩</div>
+      </div>
+    </div>
+    <div class="lore-arrow">↙&nbsp;&nbsp;&nbsp;&nbsp;↘</div>
+    <div class="lore-row">
+      <div class="lore-node accent-blue">
+        <div class="icon">🌏</div>
+        <div class="label">萌次元星球</div>
+        <div class="sub">bibo 的故乡</div>
+      </div>
+      <div class="lore-node accent-pink">
+        <div class="icon">⚡</div>
+        <div class="label">地球能量波动</div>
+        <div class="sub">搜集人类情绪能量</div>
+      </div>
+    </div>
+    <div class="lore-arrow">↘&nbsp;&nbsp;&nbsp;&nbsp;↙</div>
+    <div class="lore-row">
+      <div class="lore-node accent-green">
+        <div class="icon">📍</div>
+        <div class="label">苏网站</div>
+        <div class="sub">能量搜集目的地</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── Personality Types ─── -->
+<div class="section">
+  <div class="section-label">网球人格系统</div>
+  <div class="section-title">五种 <span>网球人格</span> 类型</div>
+  <div class="persona-grid">
+    <div class="persona-card persona-red">
+      <div class="icon">🌀</div>
+      <div class="name" style="color:#F472B6">陀螺攻打型</div>
+      <div class="tip">红粉色系卡牌</div>
+    </div>
+    <div class="persona-card persona-orange">
+      <div class="icon">🌪️</div>
+      <div class="name" style="color:#FB923C">龙卷风扣杀型</div>
+      <div class="tip">橙黄色系卡牌<br>大回环挥拍，动作框架大</div>
+    </div>
+    <div class="persona-card persona-blue">
+      <div class="icon">🐧</div>
+      <div class="name" style="color:#60A5FA">企鹅滑行型</div>
+      <div class="tip">蓝色系卡牌</div>
+    </div>
+    <div class="persona-card persona-green">
+      <div class="icon">🥴</div>
+      <div class="name" style="color:#34D399">醉拳摇摆型</div>
+      <div class="tip">绿色系卡牌</div>
+    </div>
+    <div class="persona-card persona-purple">
+      <div class="icon">✨</div>
+      <div class="name" style="color:#A78BFA">优雅营业型</div>
+      <div class="tip">紫色系卡牌</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── Flow Overview ─── -->
+<div class="section">
+  <div class="section-label">活动全览</div>
+  <div class="section-title">三条 <span>参与路线</span></div>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="ov-icon" style="background:rgba(96,165,250,.15)">🎾</div>
+      <div>
+        <div class="ov-title">路线 A · 网球人格任务</div>
+        <div class="ov-desc">抽取人格卡 → 挥拍进球 → 集印章 → 兑换周边</div>
+      </div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-icon" style="background:rgba(244,114,182,.15)">💖</div>
+      <div>
+        <div class="ov-title">路线 B · 情绪表现任务</div>
+        <div class="ov-desc">领情绪卡 → 表演指定情绪 → 拍照留念 → 集印章 → 兑换周边</div>
+      </div>
+    </div>
+    <div class="overview-card">
+      <div class="ov-icon" style="background:rgba(52,211,153,.15)">🛍️</div>
+      <div>
+        <div class="ov-title">路线 C · 周边摊位</div>
+        <div class="ov-desc">室外摊位：兑换区 / 售卖区 / 互动区</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── Track A: Tennis ─── -->
+<div class="section">
+  <div class="section-label">路线 A · 详细步骤</div>
+  <div class="section-title">🎾 <span>网球人格任务</span> 完整流程</div>
+
+  <div class="track track-tennis">
+    <div class="track-header">
+      <div class="track-icon">🎾</div>
+      <div>
+        <div class="track-title">网球人格任务</div>
+        <div class="track-desc">通过挥拍进球搜集能量碎片，展现你的网球人格</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <ul class="step-list">
+
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">远处望见摊位</div>
+            <div class="step-detail">长桌配印有 bibo + 苏网 logo 的桌布，吸引用户注意。</div>
+            <span class="step-tag">视觉吸引</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">走近摊位 · 被卡牌吸引</div>
+            <div class="step-detail">人格类型卡以花纹区分，五种颜色对应五种人格（赛事期间每天可轮换）。</div>
+            <span class="step-tag">卡牌展示</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">看规则 · 听工作人员讲解</div>
+            <div class="step-detail">
+              规则立牌大字：<strong>「参与活动，帮 bibo 搜集能量碎片，免费领取周边。」</strong><br>
+              立牌含活动方式缩略图 + bibo 世界观图案介绍：<br>
+              bibo 抽取网球人格卡 → 进行网球进球活动 → 集能量碎片印章 → 获得卡片 + 兑换周边。
+            </div>
+            <span class="step-tag">规则说明</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">领取人格卡 + 任务流程单</div>
+            <div class="step-detail">
+              <strong>任务流程单内容：</strong><br>
+              上方：bibo 世界观三角形故事图。<br>
+              中间：手绘风格点位路线图（当前点位 → 活动点位 → 兑换周边点位）。<br>
+              下方标语：「开启搜集能量碎片之旅吧，bibo 的能量搜集伙伴们！」<br><br>
+              <strong>人格卡背面：</strong>「你的网球人格是：龙卷风扣杀型」+ 动作要领提示 + 多个圆形印章区。
+            </div>
+            <span class="step-tag">领取物料</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">进场 · 看分流指引牌</div>
+            <div class="step-detail">指引牌上有拿着网球拍的 bibo 样式图案，引导用户前往任务点。</div>
+            <span class="step-tag">导流</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">抵达任务点 · 了解玩法</div>
+            <div class="step-detail">
+              说明立牌可视化流程，大字：<strong>「每轮 5 人」</strong><br>
+              流程图解：bibo 对比大/小球拍与球 → 选大球拍 → 看人设卡动作要领（默记）→ 教练喊人格名 → 走上前做夸张动作打球 → 获得能量碎片盖章。<br>
+              <em>可额外提示：进球越多获取碎片越多。</em>
+            </div>
+            <span class="step-tag">任务规则</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-title">完成任务 · 盖印章</div>
+            <div class="step-detail">印章花纹：菱形能量碎片花纹，盖在卡片背面的印章区。</div>
+            <span class="step-tag">完成任务</span>
+            <span class="step-tag">获得印章</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">8</div>
+          <div class="step-content">
+            <div class="step-title">道具归位 · 前往兑换区</div>
+            <div class="step-detail">
+              路线指引牌：拿着网球拍的 bibo 样式。<br>
+              bibo 玩偶指引牌：拿着印满印章的 mini 卡，头上是方向标，表情丰富。
+            </div>
+            <span class="step-tag">收尾导流</span>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── Track B: Emotion ─── -->
+<div class="section">
+  <div class="section-label">路线 B · 详细步骤</div>
+  <div class="section-title">💖 <span>情绪表现任务</span> 完整流程</div>
+
+  <div class="track track-emotion">
+    <div class="track-header">
+      <div class="track-icon">💖</div>
+      <div>
+        <div class="track-title">情绪表现任务</div>
+        <div class="track-desc">表演情绪、拍照留念，让 bibo 感受人类的情绪能量波动</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <ul class="step-list">
+
+        <li class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">被 bibo 人偶发粉色情绪任务卡</div>
+            <div class="step-detail">由现场 bibo 人偶主动派发，拉近互动距离。</div>
+            <span class="step-tag">主动触达</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">工作人员讲解 · 领流程单</div>
+            <div class="step-detail">
+              <strong>情绪表现卡（手绘治愈风）：</strong><br>
+              正面：彩色情绪能量球 + 四色背景（粉 / 蓝 / 黄 / 紫）。<br>
+              背面任务说明：「请去指定点位表演情绪：最幸福快乐的状态，助力 bibo 搜集情绪能量碎片！」+ 印章区。<br><br>
+              <strong>规则立牌流程：</strong> bibo 拿粉色情绪卡 → 查看「表演快乐」→ 手舞足蹈拍照 → 集印章 → 兑换周边。<br><br>
+              立牌附加文案：「感受到人类情绪波动」
+            </div>
+            <span class="step-tag">规则说明</span>
+            <span class="step-tag">领取物料</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">进场 · 看分流指引牌</div>
+            <div class="step-detail">沿路跟随粉色 bibo 立牌指引。</div>
+            <span class="step-tag">导流</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">抵达任务点 · 感受四阶段场景氛围</div>
+            <div class="step-detail">
+              四宫格场景，对应赛事四个时期：<br>
+              <br>
+              🔵 <strong>迷茫期</strong>（涂鸦 bibo 趴围栏）：「我还能走多远？会赢吗？」符号：？<br>
+              🟡 <strong>探索期</strong>（好奇眼神）：「原来我还能这样！KEEP TRYING！」符号：1%<br>
+              🔴 <strong>奋斗期</strong>（戴红头巾仰慕表情）：「再来一球！！FULL POWER！」符号：～<br>
+              ⚡ <strong>本我期</strong>（双眼发光）：「THIS IS ME！勇气就是冠军！」符号：！<br>
+              <br>
+              热血漫地贴术语：ACE！RETURN AC！WINNERS！
+            </div>
+            <span class="step-tag">场景沉浸</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">了解任务玩法</div>
+            <div class="step-detail">
+              大字：<strong>「每轮划线以内限定人数」</strong><br>
+              流程图解：站到线内 → 拿大球拍和球 → 看人设卡「幸福快乐的状态」→ 「bibo 拍照」口令响起 → 手舞足蹈 → 看屏幕照片 → 获得能量碎片盖章。
+            </div>
+            <span class="step-tag">任务规则</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <div class="step-title">进入拍摄区 · 集体表演情绪动作</div>
+            <div class="step-detail">集体在场景板前表演对应情绪，工作人员拍照记录。</div>
+            <span class="step-tag">互动拍摄</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">7</div>
+          <div class="step-content">
+            <div class="step-title">看屏幕照片</div>
+            <div class="step-detail">拍摄结果实时显示在现场屏幕上，增强仪式感。</div>
+            <span class="step-tag">即时反馈</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">8</div>
+          <div class="step-content">
+            <div class="step-title">扫码获取 AIGC 照片</div>
+            <div class="step-detail">扫描现场二维码，获取 AI 生成的专属纪念照片。</div>
+            <span class="step-tag">AIGC 纪念</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">9</div>
+          <div class="step-content">
+            <div class="step-title">工作人员确认 → 盖章</div>
+            <div class="step-detail">印章花纹：菱形能量碎片花纹，盖在情绪卡背面印章区。</div>
+            <span class="step-tag">完成任务</span>
+            <span class="step-tag">获得印章</span>
+          </div>
+        </li>
+
+        <li class="step-item">
+          <div class="step-num">10</div>
+          <div class="step-content">
+            <div class="step-title">道具归位 · 前往兑换区</div>
+            <div class="step-detail">路线指引牌 + bibo 玩偶指引牌引导前往周边兑换区。</div>
+            <span class="step-tag">收尾导流</span>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── Track C: Venue ─── -->
+<div class="section">
+  <div class="section-label">路线 C · 室外周边摊位</div>
+  <div class="section-title">🛍️ 室外 <span>周边摊位</span> 分区</div>
+
+  <div class="track track-venue">
+    <div class="track-header">
+      <div class="track-icon">🛍️</div>
+      <div>
+        <div class="track-title">室外周边售卖摊位</div>
+        <div class="track-desc">融合 bibo + 苏网 logo 粉色主视觉，分三个区域运营</div>
+      </div>
+    </div>
+    <div class="track-body">
+      <ul class="step-list">
+        <li class="step-item">
+          <div class="step-num">A</div>
+          <div class="step-content">
+            <div class="step-title">兑换区</div>
+            <div class="step-detail">凭集满印章的卡片兑换专属周边。配备工作人员 × 1。</div>
+            <span class="step-tag">印章兑换</span>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">B</div>
+          <div class="step-content">
+            <div class="step-title">售卖区</div>
+            <div class="step-detail">周边商品现场售卖。配备工作人员 × 1。</div>
+            <span class="step-tag">周边购买</span>
+          </div>
+        </li>
+        <li class="step-item">
+          <div class="step-num">C</div>
+          <div class="step-content">
+            <div class="step-title">互动区</div>
+            <div class="step-detail">增加参与者停留与互动体验。配备工作人员 × 1。</div>
+            <span class="step-tag">互动体验</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── Entry Checkin ─── -->
+<div class="section">
+  <div class="section-label">入场打卡</div>
+  <div class="section-title">镜面人形立牌 <span>打卡装置</span></div>
+
+  <div class="track track-emotion">
+    <div class="track-body">
+      <div class="step-detail" style="font-size:15px; line-height:1.8; color:var(--text)">
+        <strong>数量：</strong>镜面人形立牌 × 5<br><br>
+        <strong>主题：</strong>「bibo 见证你的任何姿态」<br><br>
+        <strong>内容：</strong>热血漫贴纸贴在镜子上，是热血漫线条元素 + 不同女子打网球姿态；bibo 在旁边展现不同表情神色：<br>
+        <span style="margin-left:16px">😲 惊喜 &nbsp; ❤️ 爱心 &nbsp; 😄 开心眯眼 &nbsp; 🥹 感动 &nbsp; 💪 坚定</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── Materials ─── -->
+<div class="section">
+  <div class="section-label">物料清单</div>
+  <div class="section-title">关键 <span>物料</span> 说明</div>
+  <div class="material-grid">
+
+    <div class="material-card">
+      <div class="m-icon">🃏</div>
+      <div class="m-name">网球人格卡</div>
+      <div class="m-desc">
+        五种颜色花纹对应五种人格，每天可轮换不同卡面。<br>
+        背面含：人格名称、动作要领提示、多个圆形印章区。
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="m-icon">📋</div>
+      <div class="m-name">任务流程单</div>
+      <div class="m-desc">
+        上方：bibo 世界观三角形故事图。<br>
+        中间：手绘风点位路线（摊位 → 活动点 → 兑换区）。<br>
+        下方：激励标语。
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="m-icon">💌</div>
+      <div class="m-name">情绪表现卡</div>
+      <div class="m-desc">
+        手绘治愈风，四种颜色（粉 / 蓝 / 黄 / 紫）。<br>
+        正面：彩色情绪能量球。<br>
+        背面：任务说明 + 印章区。
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="m-icon">🪧</div>
+      <div class="m-name">规则立牌</div>
+      <div class="m-desc">
+        大字核心信息 + 活动方式缩略图 + bibo 世界观图案介绍。
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="m-icon">🔖</div>
+      <div class="m-name">分流指引牌 / 路线指引牌</div>
+      <div class="m-desc">
+        拿网球拍的 bibo 样式图案。<br>
+        bibo 玩偶指引牌：拿印满印章的 mini 卡 + 方向指引标，表情丰富。
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="m-icon">🔵</div>
+      <div class="m-name">能量碎片印章</div>
+      <div class="m-desc">
+        花纹：菱形能量碎片图案。<br>
+        盖在各类卡片背面的圆形印章区域。
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="m-icon">🎾</div>
+      <div class="m-name">活动道具</div>
+      <div class="m-desc">
+        大网球 × 3 + 大网球拍 × 3<br>
+        小网球 + 小网球拍 × 3~5<br>
+        情绪眼罩 × 3~5<br>
+        道具归位区标识牌
+      </div>
+    </div>
+
+    <div class="material-card">
+      <div class="m-icon">🪑</div>
+      <div class="m-name">摊位主桌</div>
+      <div class="m-desc">
+        一张长桌 + 印有 bibo + 苏网 logo 的长桌布。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ─── Footer ─── -->
+<div class="footer">
+  <strong>bibo × 苏网</strong> 活动流程手册 &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; 内部使用
+</div>
+
+</body>
+</html>
